@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    padding: 20px;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.signup-form .login-form{
+    width: 100%;
+}
+
+.signup-form form .login-form form{
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form h2,
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 25px;
+    color: #333;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 15px;
+    color: #413f3f;
+    font-weight:lighter;
+    padding: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-buttons button {
+    background-color: blue;
+    margin: 4px 2px;
+    text-align: center;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+    cursor: pointer;
+}
+
+.form-buttons button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.form-buttons .login-link,
+.form-buttons .signup-link{
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.form-buttons .login-link:hover
+.form-buttons .signup-link:hover{
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.success-message {
+    display: none;
+    color: green;
+}
+
+/* Responsive Design */
+@media (max-width: 600 px) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .logo img {
+        width: 80px;
+    }
+
+    .form-button button, .form-button .login-link {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+}
