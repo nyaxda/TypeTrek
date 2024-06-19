@@ -3,14 +3,20 @@
 Has Basemodel Class
 """
 
-import models
 from datetime import datetime
-from sqlalchemy import Column, DateTime, Integer
+from sqlalchemy import Column, DateTime, Integer, create_engine
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
+DATABASE_URI = 'mysql+mysqldb://project:Mg(HCO3)2@localhost/TypeTrek'
 Base = declarative_base()
 
-class BaseModel:
+engine = create_engine(DATABASE_URI)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
+class BaseModel(Base):
     """
     Base class for other classes to inherit from
     """
@@ -22,29 +28,23 @@ class BaseModel:
     updated_at = Column(DateTime, default=datetime.utcnow,
                         onupdate=datetime.utcnow)
 
-    def __tablename__(cls):
-        """Return the tablename"""
-        return cls.__name__.lower()
-
     def save(self):
         """Save the current instance to the storage"""
-        from . import db
         try:
             if not self.id:
-                db.session.add(self)
-            db.session.commit()
+                session.add(self)
+            session.commit()
         except Exception as e:
-            db.session.rollback()
+            session.rollback()
             print(f"Error occured during save: {e}")
 
     def delete(self):
         """Delete the current instance from the storage"""
-        from . import db
         try:
-            db.session.delete(self)
-            db.session.commit()
+            session.delete(self)
+            session.commit()
         except Exception as e:
-            pring(f"Error occured during delete: {e}")
+            print(f"Error occured during delete: {e}")
 
     def to_dict(self):
         try:

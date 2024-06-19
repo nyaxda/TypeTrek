@@ -34,7 +34,7 @@
                     <div id="success-message" class="success-message"></div>
                     <div class="form-buttons">
                         <button type="submit">Register</button>
-                        <a href="login.html" class="login-link">Not New? Log in</a>
+                        <a href="{{ url_for('auth.login') }}" class="login-link">Not New? Log in</a>
                     </div>
                 </form>
             </div>
@@ -51,7 +51,7 @@
                     document.getElementById('success-message').textContent = 'Account created successfully, redirecting to login...';
                     document.getElementById('success-message').style.display = 'block';
                     setTimeout(function() {
-                        window.location.href = 'login.html';
+                        window.location.href = "{{ url_for('auth.login') }}";
                     }, 2000);
                 }
             });

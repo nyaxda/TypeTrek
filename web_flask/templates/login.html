@@ -12,8 +12,17 @@
                 <img src="../static/images/logo.png">
             </div>
             <div class="login-form">
-                <form action="/login" method="post">
+                <form action="./login" method="post">
                     <h2>Log In</h2>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <div class="alert alert-{{ category }}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" required>
@@ -25,7 +34,7 @@
                     <div id="login-error" class="error-message"></div>
                     <div class="form-buttons">
                         <button type="submit">Log In</button>
-                        <a href="/signup" class="signup-link">New Here? Sign up</a>
+                        <a href="{{ url_for('main.dashboard')}}" class="signup-link">New Here? Sign up</a>
                     </div>
                 </form>
             </div>

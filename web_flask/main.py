@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, session
 from flask import redirect, url_for, request
 from models.user import User
 from models.exercise import Exercise
+from models.base_model import session
 
 main = Blueprint('main', __name__)
 
@@ -15,7 +16,7 @@ def dashboard():
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('auth.login'))
-    user = User.query.get(user_id)
+    user = session.query(User).get(user_id)
     return render_template('dashboard.html', user=user)
 
 
@@ -24,7 +25,7 @@ def exercise(exercise_id):
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('auth.login'))
-    exercise = Exercise.query.get(exercise_id)
+    exercise = session.query(Exercise).get(exercise_id)
     if request.method == 'POST':
         # I need to add some code here for exercise submission
         pass
@@ -36,7 +37,11 @@ def report():
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('auth.login'))
-    user = User.query.get(user_id)
+    user = session.query(User).get(user_id)
     # I need to add some code for report generation
     return render_template('report.html', user=user)
-    
+
+
+if __name__ == "__main__":
+    """ Main Function """
+    app.run(host='0.0.0.0', port=5000)

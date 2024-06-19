@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey, DateTime
-from base_model import BaseModel
+from models.base_model import BaseModel
+from datetime import datetime
 
 class Progress(BaseModel):
     __tablename__ = 'progress'
