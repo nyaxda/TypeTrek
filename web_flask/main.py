@@ -6,6 +6,7 @@ from flask import redirect, url_for, request
 from models.user import User
 from models.exercise import Exercise
 from models.base_model import session
+from flask import session as flask_session
 
 main = Blueprint('main', __name__)
 
@@ -13,7 +14,7 @@ main = Blueprint('main', __name__)
 @main.route('/dashboard')
 def dashboard():
     """dashboard route"""
-    user_id = session.get('user_id')
+    user_id = flask_session.get('user_id')
     if not user_id:
         return redirect(url_for('auth.login'))
     user = session.query(User).get(user_id)

@@ -12,6 +12,13 @@
                 <img src="../static/images/logo.png" alt="TypeTrek Logo">
             </div>
             <div class="signup-form">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% for category, message in messages %}
+                        <div class="{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endwith %}
                 <form action="/register" method="post">
                     <h2>Sign Up</h2>
                     <div class="form-group">
@@ -39,22 +46,5 @@
                 </form>
             </div>
         </div>
-
-        <script>
-            document.querySelector('form').addEventListener('submit', function(event) {
-                event.preventDefault();
-                var password = document.getElementById('password').value;
-                var confirmPassword = document.getElementById('confirm-password').value;
-                if (password !== confirmPassword) {
-                    document.getElementById('password-error').textContent = 'Passwords do not match';
-                } else {
-                    document.getElementById('success-message').textContent = 'Account created successfully, redirecting to login...';
-                    document.getElementById('success-message').style.display = 'block';
-                    setTimeout(function() {
-                        window.location.href = "{{ url_for('auth.login') }}";
-                    }, 2000);
-                }
-            });
-        </script>
     </body>
 </htmml>
