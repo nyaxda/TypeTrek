@@ -21,20 +21,31 @@ def dashboard():
     return render_template('dashboard.html', user=user)
 
 
-@main.route('/exercise<int:exercise_id>', methods=['GET', 'POST'])
+@main.route('/exercises/<int:exercise_id>', methods=['GET', 'POST'])
 def exercise(exercise_id):
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('auth.login'))
     exercise = session.query(Exercise).get(exercise_id)
+    if not exercise:
+        # Handle the case where no Exercise with the given exercise_id exists
+        flash('No exercise found with the given ID.', 'error')
+        return redirect(url_for('main.exercises'))
     if request.method == 'POST':
         # I need to add some code here for exercise submission
         pass
     return render_template('exercise.html', exercise=exercise)
 
+@main.route('/exercises', methods=['GET'])
+def exercises():
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect(url_for('auth.login'))
+    exercises = session.query(Exercise).all()
+    return render_template('exercises.html', exercises=exercises)
 
-@main.route('/report')
-def report():
+@main.route('/profile')
+def profile():
     user_id = session.get('user_id')
     if not user_id:
         return redirect(url_for('auth.login'))

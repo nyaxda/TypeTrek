@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - TypeTrek</title>
-    <link rel="stylesheet" href="../static/styles/dashboard.css">
+    <title>Exercises - TypeTrek</title>
+    <link rel="stylesheet" href="../static/styles/exercises.css">
 </head>
 <body>
     <header>
@@ -13,8 +13,8 @@
         </div>
         <nav>
             <ul>
-                <li><a href="{{ url_for('main.dashboard') }}" class="active">Dashboard</a></li>
-                <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
+                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('main.exercises') }}" class="active">Exercises</a></li>
                 <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
                 <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
@@ -22,22 +22,30 @@
     </header>
     <main>
         <div class="welcome-message">
-            <h2>Welcome, <span id="username">NyaxDae</span></h2>
+            <h2>Welcome, {{ username }}</h2>
         </div>
-        <div class="charts">
-            <div class="chart line-chart">
-                <p>Line Chart Placeholder</p>
-            </div>
-            <div class="chart pie-chart">
-                <p>Pie Chart Placeholder</p>
-            </div>
-        </div>
-        <div class="action-menu">
-            <button class="dropdown-btn">Action Menu ▼</button>
+        <div class="difficulty-dropdown">
+            <button class="dropdown-btn">Exercises ▼</button>
             <div class="dropdown-content">
-                <a href="#">Start New Exercise</a>
-                <a href="#">View Progress</a>
+                <a href="?difficulty=beginner">Beginner</a>
+                <a href="?difficulty=intermediate">Intermediate</a>
+                <a href="?difficulty=advanced">Advanced</a>
             </div>
+        </div>
+        <div class="exercise-list">
+            <h3>{{ difficulty.capitalize() }} Exercises</h3>
+            <ul>
+                {% if exercises %}
+                    {% for exercise in exercises %}
+                        <li>{{ exercise.title }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>No exercises available.</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="start-exercise">
+            <button>Start Exercise</button>
         </div>
     </main>
     <footer>
@@ -50,13 +58,11 @@
     </footer>
 
     <script>
-        // Toggle dropdown menu on button click
         document.querySelector('.dropdown-btn').addEventListener('click', function() {
             var dropdownContent = document.querySelector('.dropdown-content');
             dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
         });
 
-        // Close dropdown menu when clicking outside of it
         document.addEventListener('click', function(event) {
             var dropdownBtn = document.querySelector('.dropdown-btn');
             var dropdownContent = document.querySelector('.dropdown-content');

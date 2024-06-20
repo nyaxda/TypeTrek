@@ -58,7 +58,8 @@ def register():
 
 @auth.route('/logout')
 def logout():
-    logout_user()
+    if 'user_id' in flask_session:
+        flask_session.pop('user_id')
     return redirect(url_for('auth.login'))
 
 if __name__ == "__main__":
