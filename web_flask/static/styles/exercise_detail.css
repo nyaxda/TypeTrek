@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo img {
+    width: 150px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome-message {
+    margin-bottom: 20px;
+}
+
+.welcome-message h2 {
+    font-size: 2rem;
+}
+
+.exercise-container {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.exercise-content {
+    margin-bottom: 20px;
+}
+
+.stats {
+    text-align: left;
+}
+
+.stats p {
+    margin: 5px 0;
+}
+
+#user-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+footer {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}

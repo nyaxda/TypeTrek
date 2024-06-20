@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise {{ exercise.id }} - TypeTrek</title>
+    <link rel="stylesheet" href="../static/styles/exercise_detail.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../static/images/logo.png" alt="TypeTrek Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('main.exercises') }}" class="active">Exercises</a></li>
+                <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="welcome-message">
+            <h2>Welcome, {{ user.username }}</h2>
+        </div>
+        <div class="exercise-container">
+            <h3>{{ exercise.title }}</h3>
+            <div class="exercise-content">
+                <p>{{ exercise.content }}</p>
+            </div>
+            <textarea id="user-input" rows="4" cols="50" placeholder="Type here..."></textarea>
+            <div class="stats">
+                <p>Accuracy: <span id="accuracy">0%</span></p>
+                <p>Words Per Minute: <span id="wpm">0</span></p>
+                <p>Strokes Per Minute: <span id="spm">0</span></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <nav class="breadcrumb">
+            <a href="#">Home</a> &gt;
+            <a href="#">Products</a> &gt;
+            <a href="#">Xyz</a> &gt;
+            <a href="#">Features</a>
+        </nav>
+    </footer>
+
+    <script>
+        let startTime;
+        const content = "{{ exercise.content }}";
+        const userInput = document.getElementById('user-input');
+        const accuracyElem = document.getElementById('accuracy');
+        const wpmElem = document.getElementById('wpm');
+        const spmElem = document.getElementById('spm');
+
+        userInput.addEventListener('input', function() {
+            if (!startTime) {
+                startTime = new Date();
+            }
+
+            const userText = userInput.value;
+            const accuracy = calculateAccuracy(content, userText);
+            const timeElapsed = (new Date() - startTime) / 1000 / 60; // time in minutes
+            const wordsTyped = userText.split(' ').length;
+            const strokesTyped = userText.length;
+            const wpm = (wordsTyped / timeElapsed).toFixed(2);
+            const spm = (strokesTyped / timeElapsed).toFixed(2);
+
+            accuracyElem.textContent = `${accuracy}%`;
+            wpmElem.textContent = wpm;
+            spmElem.textContent = spm;
+        });
+
+        function calculateAccuracy(content, userText) {
+            const contentWords = content.split(' ');
+            const userWords = userText.split(' ');
+            let correctWords = 0;
+
+            contentWords.forEach((word, index) => {
+                if (userWords[index] === word) {
+                    correctWords++;
+                }
+            });
+
+            return ((correctWords / contentWords.length) * 100).toFixed(2);
+        }
+    </script>
+</body>
+</html>

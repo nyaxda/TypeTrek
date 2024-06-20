@@ -22,22 +22,22 @@
     </header>
     <main>
         <div class="welcome-message">
-            <h2>Welcome, {{ username }}</h2>
+            <h2>Welcome, {{ user.username }}</h2>
         </div>
         <div class="difficulty-dropdown">
             <button class="dropdown-btn">Exercises ▼</button>
             <div class="dropdown-content">
-                <a href="?difficulty=beginner">Beginner</a>
-                <a href="?difficulty=intermediate">Intermediate</a>
-                <a href="?difficulty=advanced">Advanced</a>
+                <a href="?difficulty_level=beginner">Beginner</a>
+                <a href="?difficulty_level=intermediate">Intermediate</a>
+                <a href="?difficulty_level=advanced">Advanced</a>
             </div>
         </div>
         <div class="exercise-list">
-            <h3>{{ difficulty.capitalize() }} Exercises</h3>
+            <h3>{{ difficulty_level.capitalize() }} Exercises</h3>
             <ul>
                 {% if exercises %}
                     {% for exercise in exercises %}
-                        <li>{{ exercise.title }}</li>
+                        <li class="exercise-item" data-id="{{ exercise.id }}">{{ exercise.title }}</li>
                     {% endfor %}
                 {% else %}
                     <li>No exercises available.</li>
@@ -45,7 +45,7 @@
             </ul>
         </div>
         <div class="start-exercise">
-            <button>Start Exercise</button>
+            <button id="start-exercise-btn" disabled>Start Exercise</button>
         </div>
     </main>
     <footer>
@@ -72,6 +72,34 @@
                 dropdownContent.style.display = 'none';
             }
         });
+    </script>
+   <script>
+        let selectedExerciseId = null;
+
+        document.querySelectorAll('.exercise-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                // Highlight the selected item
+                document.querySelectorAll('.exercise-item').forEach(function(item) {
+                    item.style.backgroundColor = '';
+                });
+                this.style.backgroundColor = '#ddd';
+
+                // Enable the "Start Exercise" button
+                document.getElementById('start-exercise-btn').disabled = false;
+
+                // Store the ID of the selected exercise
+                selectedExerciseId = this.getAttribute('data-id');
+            });
+        });
+
+        document.getElementById('start-exercise-btn').addEventListener('click', function() {
+            if (selectedExerciseId) {
+                // Navigate to the exercise page
+                window.location.href = `/exercises/${selectedExerciseId}`;
+            }
+        });
+</script>
+
     </script>
 </body>
 </html>
