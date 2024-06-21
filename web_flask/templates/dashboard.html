@@ -41,11 +41,14 @@
         </div>
     </main>
     <footer>
-        <nav class="breadcrumb">
-            <a href="#">Home</a> &gt;
-            <a href="#">Products</a> &gt;
-            <a href="#">Xyz</a> &gt;
-            <a href="#">Features</a>
+        <p>&copy; 2024 TypeTrek. All rights reserved.</p>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
+                <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            </ul>
         </nav>
     </footer>
 

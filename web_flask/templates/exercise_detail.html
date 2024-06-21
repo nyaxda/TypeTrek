@@ -26,23 +26,35 @@
         </div>
         <div class="exercise-container">
             <h3>{{ exercise.title }}</h3>
-            <div class="exercise-content">
-                <p>{{ exercise.content }}</p>
+            <div class="exercise-content unselectable" oncopy="return false;">
+                <p id="exercise-text">{{ exercise.content }}</p>
             </div>
             <textarea id="user-input" rows="4" cols="50" placeholder="Type here..."></textarea>
             <div class="stats">
-                <p>Accuracy: <span id="accuracy">0%</span></p>
-                <p>Words Per Minute: <span id="wpm">0</span></p>
-                <p>Strokes Per Minute: <span id="spm">0</span></p>
+                <div class="stat-item">
+                    <p class="stat-label">Accuracy:</p>
+                    <p class="stat-value" id="accuracy">0%</p>
+                </div>
+                <div class="stat-item">
+                    <p class="stat-label">Words Per Minute:</p>
+                    <p class="stat-value" id="wpm">0</p>
+                </div>
+                <div class="stat-item">
+                    <p class="stat-label">Strokes Per Minute:</p>
+                    <p class="stat-value" id="spm">0</p>
+                </div>
             </div>
         </div>
     </main>
     <footer>
-        <nav class="breadcrumb">
-            <a href="#">Home</a> &gt;
-            <a href="#">Products</a> &gt;
-            <a href="#">Xyz</a> &gt;
-            <a href="#">Features</a>
+        <p>&copy; 2024 TypeTrek. All rights reserved.</p>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
+                <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            </ul>
         </nav>
     </footer>
 
@@ -50,6 +62,7 @@
         let startTime;
         const content = "{{ exercise.content }}";
         const userInput = document.getElementById('user-input');
+        const exerciseText = document.getElementById('exercise-text');
         const accuracyElem = document.getElementById('accuracy');
         const wpmElem = document.getElementById('wpm');
         const spmElem = document.getElementById('spm');
@@ -70,6 +83,8 @@
             accuracyElem.textContent = `${accuracy}%`;
             wpmElem.textContent = wpm;
             spmElem.textContent = spm;
+
+            updateExerciseText(content, userText);
         });
 
         function calculateAccuracy(content, userText) {
@@ -85,6 +100,40 @@
 
             return ((correctWords / contentWords.length) * 100).toFixed(2);
         }
+
+        function updateExerciseText(content, userText) {
+            let updatedText = '';
+            for (let i = 0; i < content.length; i++) {
+                if (i < userText.length) {
+                    if (content[i] === userText[i]) {
+                        updatedText += `<span class="correct">${content[i]}</span>`;
+                    } else {
+                        updatedText += `<span class="incorrect">${content[i]}</span>`;
+                    }
+                } else {
+                    updatedText += `<span>${content[i]}</span>`;
+                }
+            }
+            exerciseText.innerHTML = updatedText;
+        }
+
+        // Prevent pasting in the textarea
+        userInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+        });
+
+        // Prevent selecting and copying the exercise content
+        exerciseText.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+
+        exerciseText.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+        });
+
+        exerciseText.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>
