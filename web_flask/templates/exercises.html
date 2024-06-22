@@ -75,17 +75,16 @@
                 dropdownContent.style.display = 'none';
             }
         });
-    </script>
-   <script>
+
         let selectedExerciseId = null;
 
         document.querySelectorAll('.exercise-item').forEach(function(item) {
             item.addEventListener('click', function() {
                 // Highlight the selected item
                 document.querySelectorAll('.exercise-item').forEach(function(item) {
-                    item.style.backgroundColor = '';
+                    item.classList.remove('selected');
                 });
-                this.style.backgroundColor = '#ddd';
+                this.classList.add('selected');
 
                 // Enable the "Start Exercise" button
                 document.getElementById('start-exercise-btn').disabled = false;
@@ -101,8 +100,6 @@
                 window.location.href = `/exercises/${selectedExerciseId}`;
             }
         });
-</script>
-
     </script>
 </body>
 </html>

@@ -45,6 +45,14 @@ class BaseModel(Base):
             session.commit()
         except Exception as e:
             print(f"Error occured during delete: {e}")
+    
+    def update(self):
+        """Update the current instance in the storage"""
+        try:
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            print(f"Error occured during update: {e}")
 
     def to_dict(self):
         try:

@@ -5,6 +5,8 @@ from web_flask import create_app
 from sqlalchemy import create_engine
 from models.base_model import Base, DATABASE_URI
 from models.user import User
+from models.exercise import Exercise
+from models.progress import Progress
 from models.base_model import BaseModel
 
 # Check if MySQL service is running

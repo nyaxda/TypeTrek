@@ -130,12 +130,24 @@ main {
 }
 
 .exercise-list ul li {
-    padding: 5px 0;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .exercise-list ul li:last-child {
     border-bottom: none;
+}
+
+.exercise-list ul li:hover {
+    background-color: #f1f1f1;
+}
+
+.exercise-list ul li.selected {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
 }
 
 .start-exercise {
@@ -160,24 +172,6 @@ main {
 footer {
     background-color: #ffffff;
     padding: 10px 20px;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.breadcrumb a {
-    text-decoration: none;
-    color: #007bff;
-    margin-right: 5px;
-    font-size: 1rem;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-}
-
-footer {
-    background-color: #ffffff;
-    padding: 20px;
     box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from sqlalchemy import Column, String, Text, CheckConstraint
+from sqlalchemy.orm import relationship
 from .base_model import BaseModel
 
 class Exercise(BaseModel):
@@ -9,3 +10,5 @@ class Exercise(BaseModel):
     content = Column(Text, nullable=False)
     difficulty_level = Column(String(50), nullable=False)
     __table_args__ = (CheckConstraint("difficulty_level in ('beginner', 'intermediate', 'hard')", name='chk_difficulty'),)
+
+    progress_entries = relationship("Progress", back_populates="exercise")

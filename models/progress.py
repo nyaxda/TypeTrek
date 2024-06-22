@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey, DateTime
 from models.base_model import BaseModel
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
 class Progress(BaseModel):
@@ -10,3 +11,5 @@ class Progress(BaseModel):
     words_per_minute = Column(Float, nullable=False)
     strokes_per_minute = Column(Float, nullable=False)
     timestamp = Column(DateTime, default=datetime.utcnow)
+
+    exercise = relationship("Exercise", back_populates="progress_entries")
