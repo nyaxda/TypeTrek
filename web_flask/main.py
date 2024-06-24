@@ -111,6 +111,31 @@ def progress():
 
     return render_template('progress.html', user=user, progress_records=progress_data)
 
+@main.route('/change_password', methods=['POST'])
+def change_password():
+    try:
+        data = request.get_json()
+        user_id = flask_session.get('user_id')
+        current_password = data.get('current_password')
+        new_password = data.get('new_password')
+
+        if not user_id:
+            return jsonify({'status': 'error', 'message': 'User not authenticated'}), 401
+
+        user = db_session.query(User).get(user_id)
+
+        if not user.check_password(current_password):
+            return jsonify({'status': 'error', 'message': 'Incorrect current password'}), 400
+
+        user.set_password(new_password)
+        user.save()
+
+        return jsonify({'status': 'success', 'message': 'Password changed successfully'}), 200
+    except Exception as e:
+        print(f"Error in change_password route: {e}")
+        return jsonify({'status': 'error', 'message': f'An error occurred: {str(e)}'}), 500
+
+
 # Register blueprint
 app.register_blueprint(main)
 

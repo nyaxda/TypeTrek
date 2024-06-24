@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - TypeTrek</title>
+    <link rel="stylesheet" href="../static/styles/profile.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../static/images/logo.png" alt="TypeTrek Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
+                <li><a href="{{ url_for('main.profile') }}" class="active">Profile</a></li>
+                <li><a href="{{ url_for('main.progress') }}">Progress</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="welcome-message">
+            <h2>Welcome, {{ user.username }}</h2>
+        </div>
+        <div class="profile-container">
+            <div class="sidebar">
+                <button id="user-info-btn" class="sidebar-btn active">User Info</button>
+                <button id="change-password-btn" class="sidebar-btn">Change Password</button>
+            </div>
+            <div class="content">
+                <div id="user-info" class="content-section">
+                    <h3>User Info</h3>
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                </div>
+                <div id="change-password" class="content-section" style="display: none;">
+                    <h3>Change Password</h3>
+                    <form id="change-password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" name="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" name="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-new-password">Confirm New Password</label>
+                            <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                        </div>
+                        <button type="submit" class="btn">Change Password</button>
+                        <div id="change-password-message"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 TypeTrek. All rights reserved.</p>
+    </footer>
+    <script>
+        document.getElementById('user-info-btn').addEventListener('click', function() {
+            document.getElementById('user-info').style.display = 'block';
+            document.getElementById('change-password').style.display = 'none';
+            this.classList.add('active');
+            document.getElementById('change-password-btn').classList.remove('active');
+        });
+
+        document.getElementById('change-password-btn').addEventListener('click', function() {
+            document.getElementById('user-info').style.display = 'none';
+            document.getElementById('change-password').style.display = 'block';
+            this.classList.add('active');
+            document.getElementById('user-info-btn').classList.remove('active');
+        });
+
+        document.getElementById('change-password-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmNewPassword = document.getElementById('confirm-new-password').value;
+
+            if (newPassword !== confirmNewPassword) {
+                document.getElementById('change-password-message').textContent = 'New passwords do not match.';
+                document.getElementById('change-password-message').style.color = 'red';
+                return;
+            }
+
+            fetch('{{ url_for('main.change_password') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    current_password: currentPassword,
+                    new_password: newPassword
+                })
+            }).then(response => response.json())
+            .then(data => {
+                document.getElementById('change-password-message').textContent = data.message;
+                document.getElementById('change-password-message').style.color = data.status === 'success' ? 'green' : 'red';
+            }).catch((error) => {
+                console.error('Error:', error);
+                document.getElementById('change-password-message').textContent = 'An error occurred: ' + error.message;
+                document.getElementById('change-password-message').style.color = 'red';
+            });
+        });
+    </script>    
+</body>
+</html>
