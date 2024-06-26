@@ -4,6 +4,7 @@ initialization file
 """
 from flask import Flask
 
+
 def create_app():
     """
     Create the app
@@ -11,7 +12,6 @@ def create_app():
     app = Flask(__name__)
     app.config['DEBUG'] = True
     app.config['SECRET_KEY'] = 'mykey'
-    
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)

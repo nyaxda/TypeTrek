@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exercises - TypeTrek</title>
     <link rel="stylesheet" href="../static/styles/exercises.css">
+    <script src="../static/scripts/exercises.js" defer></script>
 </head>
 <body>
     <header>
@@ -16,6 +17,7 @@
                 <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ url_for('main.exercises') }}" class="active">Exercises</a></li>
                 <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('main.progress') }}">Progress</a></li>
                 <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
         </nav>
@@ -29,7 +31,7 @@
             <div class="dropdown-content">
                 <a href="?difficulty_level=beginner">Beginner</a>
                 <a href="?difficulty_level=intermediate">Intermediate</a>
-                <a href="?difficulty_level=advanced">Advanced</a>
+                <a href="?difficulty_level=hard">Advanced</a>
             </div>
         </div>
         <div class="exercise-list">
@@ -50,56 +52,6 @@
     </main>
     <footer>
         <p>&copy; 2024 TypeTrek. All rights reserved.</p>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
-                <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
-                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            </ul>
-        </nav>
     </footer>
-
-    <script>
-        document.querySelector('.dropdown-btn').addEventListener('click', function() {
-            var dropdownContent = document.querySelector('.dropdown-content');
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        });
-
-        document.addEventListener('click', function(event) {
-            var dropdownBtn = document.querySelector('.dropdown-btn');
-            var dropdownContent = document.querySelector('.dropdown-content');
-            var isClickInside = dropdownBtn.contains(event.target) || dropdownContent.contains(event.target);
-
-            if (!isClickInside) {
-                dropdownContent.style.display = 'none';
-            }
-        });
-
-        let selectedExerciseId = null;
-
-        document.querySelectorAll('.exercise-item').forEach(function(item) {
-            item.addEventListener('click', function() {
-                // Highlight the selected item
-                document.querySelectorAll('.exercise-item').forEach(function(item) {
-                    item.classList.remove('selected');
-                });
-                this.classList.add('selected');
-
-                // Enable the "Start Exercise" button
-                document.getElementById('start-exercise-btn').disabled = false;
-
-                // Store the ID of the selected exercise
-                selectedExerciseId = this.getAttribute('data-id');
-            });
-        });
-
-        document.getElementById('start-exercise-btn').addEventListener('click', function() {
-            if (selectedExerciseId) {
-                // Navigate to the exercise page
-                window.location.href = `/exercises/${selectedExerciseId}`;
-            }
-        });
-    </script>
 </body>
 </html>

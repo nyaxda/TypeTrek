@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""This module is a debugging tool meant to check database connectivity"""
 
 from sqlalchemy import create_engine
 

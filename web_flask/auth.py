@@ -27,9 +27,10 @@ def login():
             flask_session['user_id'] = user.id
             return redirect(url_for('main.dashboard'))
         else:
-            flash('Login Unsuccessful. Please check your username and password',
+            flash('Login Unsuccessful. Check your username and password',
                   'danger')
     return render_template('login.html')
+
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -44,8 +45,9 @@ def register():
             if password != confirm_password:
                 flash('Passwords do not match')
                 return render_template('register.html')
-        
-            hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+            hashed_password = generate_password_hash(password,
+                                                     method='pbkdf2:sha256')
             new_user = User(email=email, username=username,
                             password_hash=hashed_password)
             new_user.save()
@@ -56,11 +58,14 @@ def register():
             print(str(e))
     return render_template('sign_up.html')
 
+
 @auth.route('/logout')
 def logout():
+    """logout route"""
     if 'user_id' in flask_session:
         flask_session.pop('user_id')
     return redirect(url_for('auth.login'))
+
 
 if __name__ == "__main__":
     """ Main Function """

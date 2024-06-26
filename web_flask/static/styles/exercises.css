@@ -117,6 +117,8 @@ main {
     padding: 20px;
     margin-bottom: 20px;
     text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .exercise-list h3 {

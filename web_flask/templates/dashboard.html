@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - TypeTrek</title>
     <link rel="stylesheet" href="../static/styles/dashboard.css">
+    <script src="../static/scripts/dashboard.js" defer></script>
 </head>
 <body>
     <header>
@@ -16,6 +17,7 @@
                 <li><a href="{{ url_for('main.dashboard') }}" class="active">Dashboard</a></li>
                 <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
                 <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('main.progress') }}">Progress</a></li>
                 <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
             </ul>
         </nav>
@@ -23,52 +25,32 @@
     <main>
         <div class="welcome-message">
             <h2>Welcome, <span id="username">{{ user.username }}</span></h2>
+            <p>Your Typing Journey at a Glance</p>
         </div>
-        <div class="charts">
-            <div class="chart line-chart">
-                <p>Line Chart Placeholder</p>
+        <div class="stats-summary">
+            <div class="stat-item">
+                <h4>Average Speed</h4>
+                <p id="avgSpeed">{{ avg_speed }} WPM</p>
             </div>
-            <div class="chart pie-chart">
-                <p>Pie Chart Placeholder</p>
+            <div class="stat-item">
+                <h4>Average Accuracy</h4>
+                <p id="avgAccuracy">{{ avg_accuracy }}%</p>
+            </div>
+            <div class="stat-item">
+                <h4>Total Exercises Completed</h4>
+                <p id="totalExercises">{{ total_exercises }}</p>
             </div>
         </div>
         <div class="action-menu">
             <button class="dropdown-btn">Action Menu ▼</button>
             <div class="dropdown-content">
-                <a href="#">Start New Exercise</a>
-                <a href="#">View Progress</a>
+                <a href="{{ url_for('main.exercises') }}">Start New Exercise</a>
+                <a href="{{ url_for('main.progress') }}">View Progress</a>
             </div>
         </div>
     </main>
     <footer>
         <p>&copy; 2024 TypeTrek. All rights reserved.</p>
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('main.dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('main.exercises') }}">Exercises</a></li>
-                <li><a href="{{ url_for('main.profile') }}">Profile</a></li>
-                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            </ul>
-        </nav>
     </footer>
-
-    <script>
-        // Toggle dropdown menu on button click
-        document.querySelector('.dropdown-btn').addEventListener('click', function() {
-            var dropdownContent = document.querySelector('.dropdown-content');
-            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-        });
-
-        // Close dropdown menu when clicking outside of it
-        document.addEventListener('click', function(event) {
-            var dropdownBtn = document.querySelector('.dropdown-btn');
-            var dropdownContent = document.querySelector('.dropdown-content');
-            var isClickInside = dropdownBtn.contains(event.target) || dropdownContent.contains(event.target);
-
-            if (!isClickInside) {
-                dropdownContent.style.display = 'none';
-            }
-        });
-    </script>
 </body>
 </html>

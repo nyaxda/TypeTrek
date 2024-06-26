@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Script to manually create database tables
+Script to manually create database tables, for debugging purposes only
 """
 from web_flask import db, create_app
 from models.user import User
