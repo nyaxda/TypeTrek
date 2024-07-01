@@ -1,0 +1,196 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .logo img {
+    width: 100px;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.intro-section {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.intro-section .cover-image img {
+    width: 100%;
+    height: auto;
+}
+
+.intro-section .intro-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.intro-section h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.intro-section p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.intro-section .button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.intro-section .button:hover {
+    background-color: #0056b3;
+}
+
+.features-section, .about-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.features-section h2, .about-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.feature {
+    display: inline-block;
+    width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.feature img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.feature h3 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+.feature p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.about-section p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 auto 20px;
+    max-width: 800px;
+}
+
+.team {
+    margin-top: 30px;
+}
+
+.team h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.team-member {
+    display: inline-block;
+    width: 45%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.team-member h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.team-member ul {
+    list-style: none;
+    padding: 0;
+}
+
+.team-member ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+.team-member ul li a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.team-member ul li a:hover {
+    color: #0056b3;
+}
+
+.repository {
+    margin-top: 30px;
+}
+
+.repository h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.repository a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s ease;
+}
+
+.repository a:hover {
+    color: #0056b3;
+}
+
+footer {
+    background-color: #ffffff;
+    padding: 15px;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
