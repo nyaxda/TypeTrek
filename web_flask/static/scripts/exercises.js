@@ -1,8 +1,10 @@
+// Initiate the dropdown menu
 document.querySelector('.dropdown-btn').addEventListener('click', function() {
     var dropdownContent = document.querySelector('.dropdown-content');
     dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
 });
 
+// Close the dropdown menu if the user clicks outside of it
 document.addEventListener('click', function(event) {
     var dropdownBtn = document.querySelector('.dropdown-btn');
     var dropdownContent = document.querySelector('.dropdown-content');
@@ -15,6 +17,7 @@ document.addEventListener('click', function(event) {
 
 let selectedExerciseId = null;
 
+// Handle the selection of an exercise
 document.querySelectorAll('.exercise-item').forEach(function(item) {
     item.addEventListener('click', function() {
         // Highlight the selected item

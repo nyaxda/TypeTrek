@@ -70,7 +70,8 @@
         const cancelBtn = document.getElementById('cancel-btn');
         const redoExerciseBtn = document.getElementById('redo-exercise-btn');
         const completionButtons = document.getElementById('completion-buttons');
-
+    
+        // calculating the accuracy, words per minute, and strokes per minute
         userInput.addEventListener('input', function() {
             if (!startTime) {
                 startTime = new Date();
@@ -138,7 +139,7 @@
                     exercise_id: {{ exercise.id }},
                     accuracy: accuracy,
                     wpm: wpm,
-                    spm: spm
+                    spm: spm,
                 })
             }).then(response => response.json())
               .then(data => {
@@ -165,6 +166,7 @@
             });
         });
 
+        // save progress when the user clicks the back button
         backBtn.addEventListener('click', function() {
             const accuracy = accuracyElem.textContent.replace('%', '');
             const wpm = wpmElem.textContent;
@@ -174,12 +176,14 @@
             });
         });
 
+        // cancel the exercise
         cancelBtn.addEventListener('click', function() {
             if (confirm('Are you sure you want to cancel the exercise?')) {
                 window.location.href = "{{ url_for('main.exercises') }}";
             }
         });
 
+        // redo the exercise
         redoExerciseBtn.addEventListener('click', function() {
             userInput.value = '';
             accuracyElem.textContent = '0%';
@@ -202,11 +206,11 @@
         exerciseText.addEventListener('copy', function(e) {
             e.preventDefault();
         });
-
+        // prevent selecting the exercise content
         exerciseText.addEventListener('mousedown', function(e) {
             e.preventDefault();
         });
-
+        // prevent selecting the exercise content
         exerciseText.addEventListener('selectstart', function(e) {
             e.preventDefault();
         });
